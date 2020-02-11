@@ -7,7 +7,9 @@ export default class BFS extends React.Component {
     super(props);
 
     this.state = {
-      hexSize: 20
+      hexSize: 20,
+      hexOrigin: { x: 350, y: 300 }
+
     }
 
   }
@@ -23,7 +25,7 @@ export default class BFS extends React.Component {
     const { canvasWidth, canvasHeight } = this.state.canvasSize;
     this.canvasHex.width = canvasWidth;
     this.canvasHex.height = canvasHeight;
-    this.drawHex(this.canvasHex, { x: 50, y: 50 });
+    this.drawHexes();
   }
 
 
@@ -54,11 +56,41 @@ export default class BFS extends React.Component {
      const ctx = canvasID.getContext("2d");
      ctx.beginPath();
      ctx.moveTo(start.x, start.y);
-
      ctx.lineTo(end.x, end.y);
      ctx.stroke();
      ctx.closePath();
    }
+
+   drawHexes() {
+     for(let r = -4; r <=4; r++) {
+       for(let q = -4; q <= 4; q++) {
+
+         let center = this.hexToPixel(this.Hex(q, r));
+         this.drawHex(this.canvasHex, center);
+         this.drawHexCoordinates(this.canvasHex, center, this.Hex(q, r));
+         console.log(center)
+       }
+     }
+   }
+
+   hexToPixel(h){
+     let hexOrigin = this.state.hexOrigin;
+     let x = this.state.hexSize * Math.sqrt(3) * (h.q + h.r/2) + hexOrigin.x;
+     let y = this.state.hexSize * 3/2 * h.r + hexOrigin.y;
+     return this.Point(x, y)
+   }
+
+Hex(q, r) {
+  return { q: q, r: r}
+}
+
+drawHexCoordinates(canvasID, center, h) {
+  const ctx = canvasID.getContext("2d");
+  ctx.fillText(h.q, center.x-10, center.y);
+  ctx.fillText(h.r, center.x+7, center.y);
+}
+
+
 
 
 
