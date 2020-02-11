@@ -5,6 +5,11 @@ import './BFS.css';
 export default class BFS extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      hexSize: 20
+    }
+
   }
 
   componentWillMount(){
@@ -23,7 +28,7 @@ export default class BFS extends React.Component {
 
 
   getHexCornerCoord(center, i) {
-   let angle_deg = 60 * i   + 30;
+   let angle_deg = 60 * i  + 30;
    let angle_rad = Math.PI / 180 * angle_deg;
    let x = center.x + this.state.hexSize * Math.cos(angle_rad);
    let y = center.y + this.state.hexSize * Math.sin(angle_rad);
