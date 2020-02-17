@@ -8,7 +8,7 @@ export default class BFS extends React.Component {
 
     this.state = {
       hexSize: 20,
-      hexOrigin: { x: 350, y: 300 }
+      hexOrigin: { x: 30, y: 30 }
 
     }
 
@@ -97,10 +97,7 @@ export default class BFS extends React.Component {
             this.drawHexCoordinates(this.canvasHex, this.Point(x,y), this.Hex(q+n, r));
           }
         }
-
      }
-
-
    }
 
    hexToPixel(h){
